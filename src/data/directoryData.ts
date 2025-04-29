@@ -1,3 +1,4 @@
+
 /**
  * Directory data for businesses and places
  */
@@ -255,7 +256,8 @@ export const directoryData: DirectoryItem[] = [
     priceRange: "$$",
     yearEstablished: 2016,
     socialMedia: {
-      instagram: "instagram.com/urbangardensupply"
+      instagram: "instagram.com/urbangardensupply",
+      pinterest: "pinterest.com/urbangardensupply"
     },
     location: {
       lat: 37.771151,
