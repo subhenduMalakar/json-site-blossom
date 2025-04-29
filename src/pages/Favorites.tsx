@@ -2,14 +2,13 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import DirectoryCard from "@/components/DirectoryCard";
-import DirectoryModal from "@/components/DirectoryModal";
 import { Button } from "@/components/ui/button";
 import { DirectoryItem } from "@/data/directoryData";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<DirectoryItem[]>([]);
-  const [selectedItem, setSelectedItem] = useState<DirectoryItem | null>(null);
   const { toast } = useToast();
 
   // Mocked favorites data - in a real app, this would come from storage or an API
@@ -51,14 +50,6 @@ const Favorites = () => {
     
     setFavorites(mockFavorites);
   }, []);
-
-  const handleItemClick = (item: DirectoryItem) => {
-    setSelectedItem(item);
-  };
-  
-  const closeModal = () => {
-    setSelectedItem(null);
-  };
   
   const removeFromFavorites = (id: number) => {
     setFavorites(favorites.filter(item => item.id !== id));
@@ -116,15 +107,15 @@ const Favorites = () => {
                       variant="secondary" 
                       size="sm" 
                       className="bg-white/80 hover:bg-white text-red-500 hover:text-red-600 backdrop-blur-sm"
-                      onClick={() => removeFromFavorites(item.id)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        removeFromFavorites(item.id);
+                      }}
                     >
                       Remove
                     </Button>
                   </div>
-                  <DirectoryCard
-                    item={item}
-                    onClick={() => handleItemClick(item)}
-                  />
+                  <DirectoryCard item={item} />
                 </motion.div>
               ))}
             </motion.div>
@@ -153,11 +144,6 @@ const Favorites = () => {
           </div>
         )}
       </main>
-      
-      {/* Detail Modal */}
-      {selectedItem && (
-        <DirectoryModal item={selectedItem} onClose={closeModal} />
-      )}
     </div>
   );
 };

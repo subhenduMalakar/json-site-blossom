@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Favorites from "./pages/Favorites";
+import DirectoryDetails from "./pages/DirectoryDetails";
 import NotFound from "./pages/NotFound";
 import { useState } from "react";
 
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
               <Route path="/favorites" element={<Favorites />} />
+              <Route path="/directory/:id" element={<DirectoryDetails />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

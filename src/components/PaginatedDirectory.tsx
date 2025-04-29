@@ -12,9 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import DirectoryCard from "@/components/DirectoryCard";
-import DirectoryModal from "@/components/DirectoryModal";
 import { Search, Filter, Star, StarHalf, StarOff } from "lucide-react";
 import { DirectoryItem } from "@/data/directoryData";
 import { getPaginatedData, getPageNumbers } from "@/utils/pagination";
@@ -34,7 +32,6 @@ interface PaginatedDirectoryProps {
 const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedItem, setSelectedItem] = useState<DirectoryItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [minRating, setMinRating] = useState(0);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -95,14 +92,6 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
     paginationInfo.currentPage,
     paginationInfo.totalPages
   );
-  
-  const handleItemClick = (item: DirectoryItem) => {
-    setSelectedItem(item);
-  };
-  
-  const closeModal = () => {
-    setSelectedItem(null);
-  };
   
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -233,10 +222,7 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
         >
           {displayItems.map((item) => (
             <motion.div key={item.id} variants={itemVariants}>
-              <DirectoryCard
-                item={item}
-                onClick={() => handleItemClick(item)}
-              />
+              <DirectoryCard item={item} />
             </motion.div>
           ))}
         </motion.div>
@@ -286,11 +272,6 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
             </PaginationContent>
           </Pagination>
         </div>
-      )}
-      
-      {/* Detail Modal */}
-      {selectedItem && (
-        <DirectoryModal item={selectedItem} onClose={closeModal} />
       )}
     </div>
   );
