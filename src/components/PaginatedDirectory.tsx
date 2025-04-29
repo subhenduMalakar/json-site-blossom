@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -10,13 +10,21 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import DirectoryCard from "@/components/DirectoryCard";
 import DirectoryModal from "@/components/DirectoryModal";
-import { Search } from "lucide-react";
+import { Search, Filter, Star, StarHalf, StarOff } from "lucide-react";
 import { DirectoryItem } from "@/data/directoryData";
 import { getPaginatedData, getPageNumbers } from "@/utils/pagination";
 import { motion } from "framer-motion";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import siteConfig from "@/config/siteConfig.json";
 
 interface PaginatedDirectoryProps {
   data: DirectoryItem[];
@@ -28,16 +36,52 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedItem, setSelectedItem] = useState<DirectoryItem | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Number of items per page
+  const [minRating, setMinRating] = useState(0);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   
-  // Filter data based on search term and category
-  const filteredData = data.filter((item) => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory;
-  });
+  const itemsPerPage = siteConfig.features.itemsPerPage;
+  
+  // Get unique features from all directory items
+  const allFeatures = useMemo(() => {
+    const featuresSet = new Set<string>();
+    data.forEach(item => {
+      if (item.features) {
+        item.features.forEach(feature => {
+          featuresSet.add(feature);
+        });
+      }
+    });
+    return Array.from(featuresSet).sort();
+  }, [data]);
+  
+  // Toggle feature selection
+  const toggleFeature = (feature: string) => {
+    setSelectedFeatures(prev => {
+      if (prev.includes(feature)) {
+        return prev.filter(f => f !== feature);
+      } else {
+        return [...prev, feature];
+      }
+    });
+    setCurrentPage(1); // Reset to first page when changing filters
+  };
+  
+  // Filter data based on search term, category, rating and features
+  const filteredData = useMemo(() => {
+    return data.filter((item) => {
+      const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          item.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
+      const matchesRating = item.rating >= minRating;
+      
+      // Filter by selected features
+      const matchesFeatures = selectedFeatures.length === 0 || 
+        (item.features && selectedFeatures.every(feature => item.features?.includes(feature)));
+      
+      return matchesSearch && matchesCategory && matchesRating && matchesFeatures;
+    });
+  }, [data, searchTerm, selectedCategory, minRating, selectedFeatures]);
   
   // Get paginated data
   const { items: displayItems, paginationInfo } = getPaginatedData(
@@ -87,6 +131,76 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
   
   return (
     <div className="w-full">
+      {/* Advanced Filters Section */}
+      <div className="mb-6">
+        <Collapsible
+          open={isFilterOpen}
+          onOpenChange={setIsFilterOpen}
+          className="border rounded-lg shadow-sm bg-white p-4"
+        >
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Filter className="h-5 w-5" /> Filter Options
+            </h3>
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm">
+                {isFilterOpen ? "Hide Filters" : "Show Filters"}
+              </Button>
+            </CollapsibleTrigger>
+          </div>
+          
+          <CollapsibleContent className="mt-4 space-y-4">
+            {/* Rating Filter */}
+            {siteConfig.features.showRatingFilter && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">Minimum Rating</h4>
+                <div className="flex items-center gap-4">
+                  <Slider
+                    value={[minRating]}
+                    min={0}
+                    max={5}
+                    step={0.5}
+                    onValueChange={(value) => {
+                      setMinRating(value[0]);
+                      setCurrentPage(1); // Reset to first page when changing filters
+                    }}
+                    className="w-full max-w-xs"
+                  />
+                  <div className="flex items-center gap-1 text-amber-500">
+                    <span className="text-sm font-medium">{minRating}</span>
+                    {minRating > 0 ? <Star className="h-4 w-4" /> : <StarOff className="h-4 w-4 text-gray-300" />}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Features Filter */}
+            {siteConfig.features.showFeaturesFilter && allFeatures.length > 0 && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">Features</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                  {allFeatures.map((feature) => (
+                    <div key={feature} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={feature} 
+                        checked={selectedFeatures.includes(feature)}
+                        onCheckedChange={() => toggleFeature(feature)}
+                      />
+                      <label
+                        htmlFor={feature}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {feature}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+      
       {/* Category Filters */}
       <div className="mb-8 flex flex-wrap gap-2">
         {categories.map((category) => (

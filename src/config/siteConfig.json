@@ -1,0 +1,26 @@
+
+{
+  "site": {
+    "title": "Directory Explorer",
+    "description": "Discover amazing places and businesses in your area",
+    "headerBackground": "bg-gradient-to-r from-purple-700 to-indigo-800",
+    "logo": {
+      "text": "Directory Explorer",
+      "image": ""
+    },
+    "footerText": "© 2025 Directory Explorer. All rights reserved."
+  },
+  "features": {
+    "showRatingFilter": true,
+    "showFeaturesFilter": true,
+    "itemsPerPage": 6,
+    "enableFavorites": true,
+    "enableShare": true
+  },
+  "socialLinks": {
+    "facebook": "https://facebook.com",
+    "twitter": "https://twitter.com",
+    "instagram": "https://instagram.com",
+    "linkedin": "https://linkedin.com"
+  }
+}

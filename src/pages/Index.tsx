@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import { directoryData, categories } from "@/data/directoryData";
 import PaginatedDirectory from "@/components/PaginatedDirectory";
 import { useState } from "react";
+import siteConfig from "@/config/siteConfig.json";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,10 +20,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <header className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-16">
+      <header className={`${siteConfig.site.headerBackground} text-white py-16`}>
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Directory Explorer</h1>
-          <p className="text-xl opacity-90 mb-8">Discover amazing places and businesses in your area</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{siteConfig.site.title}</h1>
+          <p className="text-xl opacity-90 mb-8">{siteConfig.site.description}</p>
           
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="max-w-xl bg-white rounded-full overflow-hidden flex items-center p-1 shadow-lg">
