@@ -23,6 +23,7 @@ export interface DirectoryItem {
     twitter?: string;
     instagram?: string;
     linkedin?: string;
+    pinterest?: string;
   };
   location?: {
     lat: number;
