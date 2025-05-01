@@ -161,14 +161,14 @@ const Layout = ({ children }: LayoutProps) => {
                   </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

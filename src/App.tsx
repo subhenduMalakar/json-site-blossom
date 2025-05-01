@@ -13,7 +13,8 @@ import DirectoryDetails from "./pages/DirectoryDetails";
 import NotFound from "./pages/NotFound";
 import BlogList from "./blog/BlogList"; // Import BlogList
 import BlogDetail from "./blog/BlogDetail"; // Import BlogDetail
-import StaticPage from "./pages/StaticPage"; // Import StaticPage
+import Contact from "./pages/Contact"; // Import Contact page
+import PrivacyPolicy from "./pages/PrivacyPolicy"; // Import Privacy Policy page
 import { useState } from "react";
 
 const App = () => {
@@ -40,8 +41,9 @@ const App = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="/blog" element={<BlogList />} /> {/* Blog List Route */}
               <Route path="/blog/:slug" element={<BlogDetail />} /> {/* Blog Detail Route */}
-              {/* Dynamic route for static pages */}
-              <Route path="/page/:slug" element={<StaticPage />} />
+              {/* Static pages */}
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Layout>
