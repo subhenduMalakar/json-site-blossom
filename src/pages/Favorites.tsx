@@ -4,52 +4,32 @@ import { useToast } from "@/hooks/use-toast";
 import DirectoryCard from "@/components/DirectoryCard";
 import { Button } from "@/components/ui/button";
 import { DirectoryItem } from "@/data/directoryData";
+import directoryData from "@/data/directoryData.json";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import favoritesPageData from "@/data/pages/Favorites.json";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<DirectoryItem[]>([]);
   const { toast } = useToast();
 
-  // Mocked favorites data - in a real app, this would come from storage or an API
   useEffect(() => {
-    // Simulate loading favorites from localStorage or API
-    // For now, let's use sample data
-    const mockFavorites: DirectoryItem[] = [
-      {
-        id: 1,
-        name: "Mountain View Coffee Shop",
-        category: "Cafe",
-        description: "A cozy coffee shop with mountain views and fresh pastries daily.",
-        address: "123 Alpine Road, Mountain View",
-        phone: "(555) 123-4567",
-        website: "www.mountainviewcoffee.com",
-        email: "info@mountainviewcoffee.com",
-        image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        rating: 4.5,
-        hours: "Mon-Fri: 7am-7pm, Sat-Sun: 8am-6pm",
-        features: ["Free WiFi", "Outdoor Seating"],
-        priceRange: "$$"
-      },
-      {
-        id: 5,
-        name: "Bookworm's Paradise",
-        category: "Bookstore",
-        description: "Cozy bookstore with rare finds and a reading cafe.",
-        address: "222 Reader's Lane, Booktown",
-        phone: "(555) 234-5678",
-        website: "www.bookwormsparadise.com",
-        email: "books@bookwormsparadise.com",
-        image: "https://images.unsplash.com/photo-1521123845560-14093637aa7d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        rating: 4.9,
-        hours: "Mon-Sat: 10am-9pm, Sun: 11am-7pm",
-        features: ["Reading Cafe", "Book Club"],
-        priceRange: "$$"
-      },
-    ];
-    
-    setFavorites(mockFavorites);
+    // In a real app, you would load favorites from localStorage or an API
+    // For this example, we'll filter from the loaded directoryData
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      const favoriteIds: number[] = JSON.parse(storedFavorites);
+      const filteredFavorites = directoryData.filter(item => favoriteIds.includes(item.id));
+      setFavorites(filteredFavorites);
+    } else {
+      setFavorites([]);
+    }
   }, []);
+
+  useEffect(() => {
+    // Update localStorage whenever favorites change
+    localStorage.setItem('favorites', JSON.stringify(favorites.map(item => item.id)));
+  }, [favorites]);
   
   const removeFromFavorites = (id: number) => {
     setFavorites(favorites.filter(item => item.id !== id));
@@ -84,9 +64,9 @@ const Favorites = () => {
       {/* Header Section */}
       <header className="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Your Favorites</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{favoritesPageData.headerTitle}</h1>
           <p className="text-xl opacity-90 mb-8">
-            Keep track of your favorite places and businesses
+            {favoritesPageData.headerDescription}
           </p>
         </div>
       </header>
@@ -112,7 +92,7 @@ const Favorites = () => {
                         removeFromFavorites(item.id);
                       }}
                     >
-                      Remove
+                      {favoritesPageData.removeButtonText}
                     </Button>
                   </div>
                   <DirectoryCard item={item} />
@@ -121,7 +101,7 @@ const Favorites = () => {
             </motion.div>
             
             <p className="text-center text-gray-600">
-              You have {favorites.length} {favorites.length === 1 ? 'favorite' : 'favorites'}
+              {favoritesPageData.favoritesCountText.replace('{count}', favorites.length.toString()).replace('{count, plural, one {favorite} other {favorites}}', favorites.length === 1 ? 'favorite' : 'favorites')}
             </p>
           </>
         ) : (
@@ -131,15 +111,15 @@ const Favorites = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-2">No favorites yet</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-2">{favoritesPageData.noFavoritesHeading}</h2>
             <p className="text-gray-500 mb-6">
-              Start adding businesses to your favorites to see them here
+              {favoritesPageData.noFavoritesMessage}
             </p>
-            <Button 
+            <Button
               onClick={() => window.location.href = '/'}
               className="bg-purple-600 hover:bg-purple-700"
             >
-              Explore Directory
+              {favoritesPageData.exploreButtonText}
             </Button>
           </div>
         )}

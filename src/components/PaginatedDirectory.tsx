@@ -14,7 +14,8 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import DirectoryCard from "@/components/DirectoryCard";
 import { Search, Filter, Star, StarHalf, StarOff } from "lucide-react";
-import { DirectoryItem } from "@/data/directoryData";
+import { DirectoryItem } from "@/data/directoryData"; // Keep the interface import
+import directoryData from "@/data/directoryData.json"; // Import from JSON
 import { getPaginatedData, getPageNumbers } from "@/utils/pagination";
 import { motion } from "framer-motion";
 import {

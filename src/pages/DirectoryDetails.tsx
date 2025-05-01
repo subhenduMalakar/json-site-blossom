@@ -2,10 +2,11 @@
 import { Helmet } from 'react-helmet-async'; // Import Helmet
 
 import { useParams, Link } from "react-router-dom";
+import directoryDetailsPageData from "@/data/pages/DirectoryDetails.json";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { directoryData } from "@/data/directoryData";
+import directoryData from "@/data/directoryData.json";
 import { Facebook, Twitter, Instagram, Linkedin, ExternalLink, Phone, Mail, Clock, MapPin, Heart, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -22,25 +23,47 @@ const DirectoryDetails = () => {
   useEffect(() => {
     // Scroll to top on page load
     window.scrollTo(0, 0);
-  }, []);
-  
+    // Check if the current item is in favorites on load
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites && item) {
+      const favoriteIds: number[] = JSON.parse(storedFavorites);
+      setIsFavorite(favoriteIds.includes(item.id));
+    }
+  }, [id, item]); // Add id and item to dependency array
+
   const toggleFavorite = () => {
+    if (!item) return; // Ensure item exists
+
+    const storedFavorites = localStorage.getItem('favorites');
+    let favoriteIds: number[] = storedFavorites ? JSON.parse(storedFavorites) : [];
+
+    if (isFavorite) {
+      // Remove from favorites
+      favoriteIds = favoriteIds.filter(favId => favId !== item.id);
+      toast({
+        title: "Removed from favorites",
+        description: "The item has been removed from your favorites.",
+      });
+    } else {
+      // Add to favorites
+      favoriteIds.push(item.id);
+      toast({
+        title: "Added to favorites",
+        description: "The item has been added to your favorites.",
+      });
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(favoriteIds));
     setIsFavorite(!isFavorite);
-    toast({
-      title: isFavorite ? "Removed from favorites" : "Added to favorites",
-      description: isFavorite 
-        ? "The item has been removed from your favorites" 
-        : "The item has been added to your favorites",
-    });
   };
 
   if (!item) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">Item Not Found</h1>
-        <p className="mb-6">The directory item you're looking for doesn't exist.</p>
+        <h1 className="text-3xl font-bold mb-4">{directoryDetailsPageData.notFoundTitle}</h1>
+        <p className="mb-6">{directoryDetailsPageData.notFoundMessage}</p>
         <Link to="/">
-          <Button>Return to Directory</Button>
+          <Button>{directoryDetailsPageData.returnButtonText}</Button>
         </Link>
       </div>
     );
@@ -57,7 +80,7 @@ const DirectoryDetails = () => {
       )}
       <Link to="/" className="flex items-center text-blue-600 hover:text-blue-800 mb-6">
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Directory
+        {directoryDetailsPageData.backButtonText}
       </Link>
       
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -102,7 +125,7 @@ const DirectoryDetails = () => {
           </div>
           
           <div className="mt-6">
-            <h3 className="font-medium text-lg">About</h3>
+            <h3 className="font-medium text-lg">{directoryDetailsPageData.aboutHeading}</h3>
             <p className="mt-2 text-gray-700">{item.description}</p>
             
             {item.yearEstablished && (
@@ -112,7 +135,7 @@ const DirectoryDetails = () => {
           
           {item.features && item.features.length > 0 && (
             <div className="mt-4">
-              <h3 className="font-medium text-lg mb-2">Features</h3>
+              <h3 className="font-medium text-lg mb-2">{directoryDetailsPageData.featuresHeading}</h3>
               <div className="flex flex-wrap gap-2">
                 {item.features.map(feature => (
                   <Badge key={feature} variant="outline" className="bg-gray-50 text-gray-700">
@@ -129,11 +152,11 @@ const DirectoryDetails = () => {
             <div>
               <h3 className="font-medium text-lg mb-2 flex items-center">
                 <MapPin className="mr-2 h-4 w-4" />
-                Contact Information
+                {directoryDetailsPageData.contactInfoHeading}
               </h3>
               <div className="space-y-3">
                 <p className="flex items-start">
-                  <span className="font-medium mr-2 min-w-[80px]">Address:</span>
+                  <span className="font-medium mr-2 min-w-[80px]">{directoryDetailsPageData.addressLabel}</span>
                   <span className="text-gray-700">{item.address}</span>
                 </p>
                 <p className="flex items-center">
@@ -168,7 +191,7 @@ const DirectoryDetails = () => {
             <div>
               <h3 className="font-medium text-lg mb-2 flex items-center">
                 <Clock className="mr-2 h-4 w-4" />
-                Hours
+                {directoryDetailsPageData.hoursHeading}
               </h3>
               <p className="text-gray-700 whitespace-pre-line">{item.hours}</p>
             </div>
@@ -176,7 +199,7 @@ const DirectoryDetails = () => {
           
           {item.socialMedia && Object.keys(item.socialMedia).length > 0 && (
             <div className="mt-6">
-              <h3 className="font-medium text-lg mb-2">Social Media</h3>
+              <h3 className="font-medium text-lg mb-2">{directoryDetailsPageData.socialMediaHeading}</h3>
               <div className="flex space-x-2">
                 {item.socialMedia.facebook && (
                   <a
@@ -224,7 +247,7 @@ const DirectoryDetails = () => {
           
           <div className="mt-8">
             <Button className="bg-purple-600 hover:bg-purple-700 w-full">
-              <Phone className="mr-2 h-4 w-4" /> Contact
+              <Phone className="mr-2 h-4 w-4" /> {directoryDetailsPageData.contactButtonText}
             </Button>
           </div>
         </div>

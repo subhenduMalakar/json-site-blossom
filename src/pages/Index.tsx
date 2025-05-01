@@ -5,10 +5,12 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { directoryData, categories } from "@/data/directoryData";
+import { categories } from "@/data/directoryData";
+import directoryData from "@/data/directoryData.json";
 import PaginatedDirectory from "@/components/PaginatedDirectory";
 import { useState } from "react";
 import siteConfig from "@/config/siteConfig.json";
+import indexPageData from "@/data/pages/Index.json";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,7 +38,7 @@ const Index = () => {
             <Search className="ml-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search by name or description..."
+              placeholder={indexPageData.searchPlaceholder}
               className="flex-grow border-none focus-visible:ring-0 focus-visible:ring-offset-0"
               style={{ color: 'black', zIndex: 10 }}
               value={searchTerm}
@@ -45,7 +47,7 @@ const Index = () => {
                 setSearchTerm(e.target.value);
               }}
             />
-            <Button type="submit" className="rounded-full">Search</Button>
+            <Button type="submit" className="rounded-full">{indexPageData.searchButtonText}</Button>
           </form>
         </div>
       </header>

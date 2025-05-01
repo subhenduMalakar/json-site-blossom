@@ -1,15 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import contactPageData from "@/data/pages/Contact.json";
 
 const Contact = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <Helmet>
-        <title>Contact Us - Directory Explorer</title>
-        <meta name="description" content="Get in touch with Directory Explorer. 100" />
+        <title>{contactPageData.pageTitle}</title>
+        <meta name="description" content={contactPageData.metaDescription} />
       </Helmet>
-      <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
-      <div className="text-gray-800 space-y-4 prose max-w-none" dangerouslySetInnerHTML={{ __html: "<h2>Get in Touch to US</h2><p>If you have any questions, feedback, or inquiries, please feel free to contact us using the information below or the contact form.</p><h3>Contact Information</h3><p>Email: info@example.com</p><p>Phone: (123) 456-7890</p><p>Address: 123 Main Street, Anytown, USA</p><h3>Contact Form (Placeholder)</h3><p>Please note: This is a placeholder. A functional contact form would require backend implementation.</p><form><label for='name'>Name:</label><br><input type='text' id='name' name='name'><br><br><label for='email'>Email:</label><br><input type='email' id='email' name='email'><br><br><label for='message'>Message:</label><br><textarea id='message' name='message'></textarea><br><br><button type='submit'>Send Message</button></form>" }} />
+      <h1 className="text-3xl font-bold mb-6">{contactPageData.pageTitle}</h1>
+      <div className="text-gray-800 space-y-4 prose max-w-none" dangerouslySetInnerHTML={{ __html: `<h2>${contactPageData.mainHeading}</h2><p>${contactPageData.introParagraph}</p><h3>${contactPageData.contactInfoHeading}</h3><p>Email: ${contactPageData.email}</p><p>Phone: ${contactPageData.phone}</p><p>Address: ${contactPageData.address}</p><h3>${contactPageData.contactFormHeading}</h3><p>${contactPageData.contactFormPlaceholderText}</p><form><label for='name'>${contactPageData.formLabels.name}</label><br><input type='text' id='name' name='name'><br><br><label for='email'>${contactPageData.formLabels.email}</label><br><input type='email' id='email' name='email'><br><br><label for='message'>${contactPageData.formLabels.message}</label><br><textarea id='message' name='message'></textarea><br><br><button type='submit'>${contactPageData.formButtonText}</button></form>` }} />
     </div>
   );
 };

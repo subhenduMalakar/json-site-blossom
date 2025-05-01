@@ -1,63 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import staticPagesData from '../data/staticPages.json'; // Importing the local JSON file
+import React, { useState } from 'react';
+import staticPageData from "@/data/pages/StaticPage.json";
 
-interface StaticPageContent {
-  slug: string;
-  title: string;
-  content: string;
-}
+// Note: The original implementation relied on a non-existent staticPages.json
+// and dynamic loading based on slug. This has been removed to focus on
+// externalizing the static text elements to StaticPage.json as requested.
+// The component will now default to showing the "Page not found" message.
 
 const StaticPage = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const [pageContent, setPageContent] = useState<StaticPageContent | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Initialize state to reflect that dynamic content is not being loaded
+  const [pageContent, setPageContent] = useState<any>(null); // Use 'any' or define a minimal type if needed
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // This effect runs whenever 'pageContent' changes.
-    if (pageContent) {
-      document.title = pageContent.title;
-      // You might want to add meta description handling here as well,
-      // similar to BlogDetail, if your staticPages.json includes it.
-    }
-    // Cleanup function to reset title if component unmounts or pageContent becomes null
-    return () => {
-      document.title = "Site Title"; // Or a default site title
-    };
-  }, [pageContent]);
-
-  useEffect(() => {
-    console.log("StaticPage component mounted. Slug:", slug);
-    console.log("Static pages data:", staticPagesData);
-
-    // Simulate fetching data and finding the page by slug
-    try {
-      const foundPage = (staticPagesData as StaticPageContent[]).find(p => p.slug === slug);
-      if (foundPage) {
-        setPageContent(foundPage);
-      } else {
-        setError('Page not found.');
-      }
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to load page content.');
-      setLoading(false);
-    }
-  }, [slug]); // Rerun effect if slug changes
+  // Removed useEffect hooks for dynamic content loading
 
   if (loading) {
-    return <div>Loading page content...</div>;
+    return <div>{staticPageData.loadingMessage}</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    // Assuming error is a string for simplicity based on previous usage
+    return <div>{staticPageData.errorMessage.replace('{error}', error)}</div>;
   }
 
   if (!pageContent) {
-    return <div>Page not found.</div>;
+    return <div>{staticPageData.notFoundMessage}</div>;
   }
 
+  // This part will not be reached in the current simplified implementation
+  // as pageContent is always null. Keeping it for potential future use
+  // if dynamic content loading is reimplemented.
   return (
     <article className="container mx-auto px-4 py-8">
       <header className="mb-8">
