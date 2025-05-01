@@ -3,6 +3,7 @@
   "site": {
     "title": "Directory Explorer",
     "description": "Discover amazing places and businesses in your area",
+    "baseUrl": "http://10.127.128.85:8080/",
     "headerBackground": "bg-gradient-to-r from-purple-700 to-indigo-800",
     "logo": {
       "text": "Directory Explorer",

@@ -1,4 +1,6 @@
 
+import { Helmet } from 'react-helmet-async';
+
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,6 +21,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>{siteConfig.site.title}</title>
+        <meta name="description" content={siteConfig.site.description} />
+      </Helmet>
       {/* Header Section */}
       <header className={`${siteConfig.site.headerBackground} text-white py-16`}>
         <div className="container mx-auto px-4">
@@ -28,12 +34,16 @@ const Index = () => {
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="max-w-xl bg-white rounded-full overflow-hidden flex items-center p-1 shadow-lg">
             <Search className="ml-4 text-gray-400" />
-            <Input 
+            <input
               type="text"
-              placeholder="Search by name or description..." 
+              placeholder="Search by name or description..."
               className="flex-grow border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              style={{ color: 'black', zIndex: 10 }}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                console.log('Input change event:', e.target.value);
+                setSearchTerm(e.target.value);
+              }}
             />
             <Button type="submit" className="rounded-full">Search</Button>
           </form>
@@ -41,7 +51,7 @@ const Index = () => {
       </header>
       
       <main className="container mx-auto px-4 py-12">
-        <PaginatedDirectory data={directoryData} categories={categories} />
+        <PaginatedDirectory data={directoryData} categories={categories} searchTerm={searchTerm} />
       </main>
     </div>
   );

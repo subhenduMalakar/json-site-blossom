@@ -27,10 +27,10 @@ import siteConfig from "@/config/siteConfig.json";
 interface PaginatedDirectoryProps {
   data: DirectoryItem[];
   categories: string[];
+  searchTerm: string;
 }
 
-const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const PaginatedDirectory = ({ data, categories, searchTerm }: PaginatedDirectoryProps) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [minRating, setMinRating] = useState(0);
@@ -78,7 +78,7 @@ const PaginatedDirectory = ({ data, categories }: PaginatedDirectoryProps) => {
       
       return matchesSearch && matchesCategory && matchesRating && matchesFeatures;
     });
-  }, [data, searchTerm, selectedCategory, minRating, selectedFeatures]);
+}, [data, searchTerm, selectedCategory, minRating, selectedFeatures]);
   
   // Get paginated data
   const { items: displayItems, paginationInfo } = getPaginatedData(

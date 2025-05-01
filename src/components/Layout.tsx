@@ -21,6 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
     { path: "/favorites", label: "Favorites" },
+    { path: "/blog", label: "Blog" },
   ];
 
   return (
@@ -152,6 +153,11 @@ const Layout = ({ children }: LayoutProps) => {
                 <li>
                   <Link to="/favorites" className="text-gray-400 hover:text-white transition-colors">
                     Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/blog" className="text-gray-400 hover:text-white transition-colors">
+                    Blog
                   </Link>
                 </li>
                 <li>

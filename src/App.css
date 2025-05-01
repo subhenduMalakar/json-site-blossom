@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Styles for headings within prose content */
+.prose h2 {
+  @apply text-2xl font-bold mt-8 mb-4; /* Adjust size/margins as needed */
+}
+
+.prose h3 {
+  @apply text-xl font-bold mt-6 mb-3; /* Adjust size/margins as needed */
+}

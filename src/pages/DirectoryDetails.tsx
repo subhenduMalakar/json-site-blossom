@@ -1,4 +1,6 @@
 
+import { Helmet } from 'react-helmet-async'; // Import Helmet
+
 import { useParams, Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -46,6 +48,13 @@ const DirectoryDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {item && (
+        <Helmet>
+          <title>{item.name}</title> {/* You might want a more descriptive title */}
+          <meta name="description" content={item.description} /> {/* Use item description for meta description */}
+          <link rel="canonical" href={window.location.href} /> {/* Canonical tag */}
+        </Helmet>
+      )}
       <Link to="/" className="flex items-center text-blue-600 hover:text-blue-800 mb-6">
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Directory
@@ -53,9 +62,9 @@ const DirectoryDetails = () => {
       
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="relative h-64 md:h-96">
-          <img 
-            src={item.image} 
-            alt={item.name} 
+          <img
+            src={item.image}
+            alt={item.name}
             className="w-full h-full object-cover"
           />
           <div className="absolute top-4 right-4">
@@ -135,10 +144,10 @@ const DirectoryDetails = () => {
                 </p>
                 <p className="flex items-center">
                   <ExternalLink className="mr-2 h-4 w-4 text-gray-500" />
-                  <a 
-                    href={`https://${item.website}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                  <a
+                    href={`https://${item.website}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
                     {item.website}
@@ -146,8 +155,8 @@ const DirectoryDetails = () => {
                 </p>
                 <p className="flex items-center">
                   <Mail className="mr-2 h-4 w-4 text-gray-500" />
-                  <a 
-                    href={`mailto:${item.email}`} 
+                  <a
+                    href={`mailto:${item.email}`}
                     className="text-blue-600 hover:underline"
                   >
                     {item.email}
@@ -170,9 +179,9 @@ const DirectoryDetails = () => {
               <h3 className="font-medium text-lg mb-2">Social Media</h3>
               <div className="flex space-x-2">
                 {item.socialMedia.facebook && (
-                  <a 
+                  <a
                     href={`https://${item.socialMedia.facebook}`}
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
                   >
@@ -180,9 +189,9 @@ const DirectoryDetails = () => {
                   </a>
                 )}
                 {item.socialMedia.twitter && (
-                  <a 
+                  <a
                     href={`https://${item.socialMedia.twitter}`}
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
                   >
@@ -190,9 +199,9 @@ const DirectoryDetails = () => {
                   </a>
                 )}
                 {item.socialMedia.instagram && (
-                  <a 
+                  <a
                     href={`https://${item.socialMedia.instagram}`}
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
                   >
@@ -200,9 +209,9 @@ const DirectoryDetails = () => {
                   </a>
                 )}
                 {item.socialMedia.linkedin && (
-                  <a 
+                  <a
                     href={`https://${item.socialMedia.linkedin}`}
-                    target="_blank" 
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
                   >
