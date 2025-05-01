@@ -1,0 +1,40 @@
+
+{% extends "layout.html" %}
+
+{% block title %}About - Directory Explorer{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">About Directory Explorer</h1>
+<div class="bg-white rounded-lg shadow-md p-6">
+    <div class="prose max-w-none">
+        <h2>Our Mission</h2>
+        <p>Directory Explorer is dedicated to providing a comprehensive and easily accessible platform for discovering and exploring valuable information about businesses, services, and resources in various categories.</p>
+        
+        <h2>What We Offer</h2>
+        <p>Our platform offers a user-friendly interface where you can:</p>
+        <ul>
+            <li>Browse through a diverse range of listings in different categories</li>
+            <li>Save your favorite listings for quick access later</li>
+            <li>Get detailed information about each listing, including contact information and social media presence</li>
+            <li>Stay updated with our blog posts about industry trends and helpful tips</li>
+        </ul>
+        
+        <h2>Our Team</h2>
+        <p>We are a dedicated team of professionals passionate about creating valuable resources for our users. Our team members bring diverse expertise in web development, data management, content creation, and customer support.</p>
+        
+        <h2>Our Values</h2>
+        <ul>
+            <li><strong>Quality:</strong> We strive to provide accurate and valuable information.</li>
+            <li><strong>Accessibility:</strong> We believe information should be easily accessible to everyone.</li>
+            <li><strong>User-Centric:</strong> We continually improve our platform based on user feedback.</li>
+            <li><strong>Integrity:</strong> We maintain high standards of honesty and transparency in all our operations.</li>
+        </ul>
+        
+        <h2>Our History</h2>
+        <p>Directory Explorer was founded in 2023 with the goal of creating a modern, user-friendly platform for exploring and discovering valuable resources. Since then, we have been continuously improving our services and expanding our directory to better serve our users.</p>
+        
+        <h2>Contact Us</h2>
+        <p>We value your feedback and inquiries. Feel free to reach out to us through our <a href="{{ url_for('contact') }}" class="text-blue-500 hover:underline">Contact page</a>.</p>
+    </div>
+</div>
+{% endblock %}

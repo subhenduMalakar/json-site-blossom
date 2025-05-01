@@ -1,0 +1,118 @@
+
+{
+    "items": [
+        {
+            "id": "1",
+            "name": "Tech Innovations Inc",
+            "description": "A leading technology company specializing in AI and machine learning solutions.",
+            "category": "Technology",
+            "address": "123 Tech Avenue, Silicon Valley, CA",
+            "contact": {
+                "phone": "555-123-4567",
+                "email": "info@techinnovations.example"
+            },
+            "website": "https://techinnovations.example",
+            "rating": 4.8,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/techinnovations",
+                "twitter": "twitter.com/techinnovations",
+                "instagram": "instagram.com/techinnovations"
+            }
+        },
+        {
+            "id": "2",
+            "name": "Green Earth Landscaping",
+            "description": "Sustainable landscaping services for residential and commercial properties.",
+            "category": "Home & Garden",
+            "address": "456 Garden Road, Greenville, OR",
+            "contact": {
+                "phone": "555-987-6543",
+                "email": "contact@greenearth.example"
+            },
+            "website": "https://greenearth.example",
+            "rating": 4.5,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/greenearth",
+                "instagram": "instagram.com/greenearth"
+            }
+        },
+        {
+            "id": "3",
+            "name": "Culinary Delights Restaurant",
+            "description": "Fine dining restaurant offering international cuisine with local ingredients.",
+            "category": "Food & Dining",
+            "address": "789 Gourmet Blvd, Foodville, NY",
+            "contact": {
+                "phone": "555-789-0123",
+                "email": "reservations@culinarydelights.example"
+            },
+            "website": "https://culinarydelights.example",
+            "rating": 4.9,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/culinarydelights",
+                "twitter": "twitter.com/culinarydelights",
+                "instagram": "instagram.com/culinarydelights"
+            }
+        },
+        {
+            "id": "4",
+            "name": "Wellness Spa & Fitness",
+            "description": "Luxury spa and fitness center offering relaxation and wellness services.",
+            "category": "Health & Wellness",
+            "address": "101 Relaxation Road, Serenity, CA",
+            "contact": {
+                "phone": "555-456-7890",
+                "email": "info@wellnessspa.example"
+            },
+            "website": "https://wellnessspa.example",
+            "rating": 4.7,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/wellnessspa",
+                "instagram": "instagram.com/wellnessspa",
+                "pinterest": "pinterest.com/wellnessspa"
+            }
+        },
+        {
+            "id": "5",
+            "name": "City Books",
+            "description": "Independent bookstore with a vast collection of books across various genres.",
+            "category": "Retail",
+            "address": "234 Reader's Lane, Booktown, IL",
+            "contact": {
+                "phone": "555-234-5678",
+                "email": "books@citybooks.example"
+            },
+            "website": "https://citybooks.example",
+            "rating": 4.6,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/citybooks",
+                "twitter": "twitter.com/citybooks",
+                "instagram": "instagram.com/citybooks"
+            }
+        },
+        {
+            "id": "6",
+            "name": "Global Education Center",
+            "description": "Educational institution offering a wide range of courses and programs.",
+            "category": "Education",
+            "address": "567 Learning Path, Knowledge City, WA",
+            "contact": {
+                "phone": "555-345-6789",
+                "email": "info@globaledu.example"
+            },
+            "website": "https://globaledu.example",
+            "rating": 4.4,
+            "imageUrl": "/static/placeholder.svg",
+            "socialMedia": {
+                "facebook": "facebook.com/globaledu",
+                "twitter": "twitter.com/globaledu",
+                "linkedin": "linkedin.com/company/globaledu"
+            }
+        }
+    ]
+}
