@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; // Assuming react-router-dom for navigation
+import Link from 'next/link';
 
 interface BlogPost {
   id: number;
@@ -25,7 +25,7 @@ const BlogPostSummary = ({ post }: BlogPostSummaryProps) => {
       )}
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-2">
-          <Link to={`/blog/${post.slug}`} className="hover:underline">{post.title}</Link>
+          <Link href={`/blog/${post.slug}`} className="hover:underline">{post.title}</Link>
         </h2>
         <p className="text-gray-600 mb-4">{post.excerpt}</p>
         <div className="text-sm text-gray-500 mb-4">

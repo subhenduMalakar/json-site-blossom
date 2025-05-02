@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Mountain View Coffee Shop",
-    "category": "Cafe",
+    "category": "Best Cafe",
     "description": "A cozy coffee shop with mountain views and fresh pastries daily. Our signature roasts come from locally sourced beans and we pride ourselves on sustainable practices. Join us for live music every Friday evening and poetry readings on Sunday afternoons.",
     "address": "123 Alpine Road, Mountain View",
     "phone": "(555) 123-4567",
@@ -11,7 +11,7 @@
     "image": "https://lh3.googleusercontent.com/p/AF1QipOzcJJNMpeBAB8SkMQ4MYpIGOdeWXuN7kLayRY9=w292-h196-n-k-no",
     "rating": 4.5,
     "hours": "Mon-Fri: 7am-7pm, Sat-Sun: 8am-6pm",
-    "features": ["Free WiFi", "Outdoor Seating", "Vegan Options", "Pet Friendly"],
+    "features": ["Free WiFi 100%", "Outdoor Seating", "Vegan Options", "Pet Friendly"],
     "priceRange": "$$",
     "yearEstablished": 2015,
     "socialMedia": {

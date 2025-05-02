@@ -1,5 +1,6 @@
 
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, Menu, X, Search } from "lucide-react";
@@ -11,7 +12,8 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const router = useRouter();
+  const currentPath = router.pathname;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,7 +31,7 @@ const Layout = ({ children }: LayoutProps) => {
       {/* Navigation */}
       <nav className="bg-white shadow-sm py-4 sticky top-0 z-50">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link to="/" className="font-bold text-2xl text-purple-700">
+          <Link href="/" className="font-bold text-2xl text-purple-700">
             Directory<span className="text-indigo-600">Explorer</span>
           </Link>
 
@@ -50,9 +52,9 @@ const Layout = ({ children }: LayoutProps) => {
             {navItems.map((item) => (
               <Link
                 key={item.path}
-                to={item.path}
+                href={item.path}
                 className={`font-medium ${
-                  location.pathname === item.path
+                  currentPath === item.path
                     ? "text-purple-700 border-b-2 border-purple-700"
                     : "text-gray-700 hover:text-purple-700"
                 } transition-colors`}
@@ -60,12 +62,12 @@ const Layout = ({ children }: LayoutProps) => {
                 {item.label}
               </Link>
             ))}
-            <Link to="/favorites">
+            <Link href="/favorites">
               <Button size="icon" variant="ghost">
-                <Heart className={location.pathname === "/favorites" ? "text-red-500" : ""} />
+                <Heart className={currentPath === "/favorites" ? "text-red-500" : ""} />
               </Button>
             </Link>
-            <Link to="/">
+            <Link href="/">
               <Button size="icon" variant="ghost">
                 <Search />
               </Button>
@@ -87,9 +89,9 @@ const Layout = ({ children }: LayoutProps) => {
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
-                    to={item.path}
+                    href={item.path}
                     className={`font-medium ${
-                      location.pathname === item.path
+                      currentPath === item.path
                         ? "text-purple-700"
                         : "text-gray-700"
                     } py-2 transition-colors`}
@@ -141,32 +143,32 @@ const Layout = ({ children }: LayoutProps) => {
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link to="/favorites" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/favorites" className="text-gray-400 hover:text-white transition-colors">
                     Favorites
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
+                  <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
                     Privacy Policy
                   </Link>
                 </li>

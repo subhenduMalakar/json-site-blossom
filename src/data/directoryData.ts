@@ -1,3 +1,4 @@
+import directoryDataJson from './directoryData.json';
 
 /**
  * Directory data for businesses and places
@@ -31,19 +32,11 @@ export interface DirectoryItem {
   };
 }
 
-export const categories = [
-  "All",
-  "Cafe",
-  "Restaurant",
-  "Technology",
-  "Fitness",
-  "Bookstore",
-  "Hotel",
-  "Education",
-  "Entertainment",
-  "Health",
-  "Shopping",
-  "Services"
-];
+const uniqueCategories = new Set<string>();
+directoryDataJson.forEach(item => {
+  uniqueCategories.add(item.category);
+});
 
-export const directoryData: DirectoryItem[] = []; // Initialize as empty array or load asynchronously
+export const categories = ["All", ...Array.from(uniqueCategories)];
+
+export const directoryData: DirectoryItem[] = directoryDataJson as DirectoryItem[];
