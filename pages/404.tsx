@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect } from "react";
-import { GetServerSideProps } from 'next';
-import fs from 'fs';
-import path from 'path';
+import notFoundPageData from '../src/data/pages/NotFound.json';
 
 interface NotFoundPageData {
   title: string;
@@ -11,11 +9,7 @@ interface NotFoundPageData {
   returnLinkText: string;
 }
 
-interface NotFoundProps {
-  notFoundPageData: NotFoundPageData;
-}
-
-const NotFound = ({ notFoundPageData }: NotFoundProps) => {
+const NotFound = () => {
   useEffect(() => {
     console.error(
       "404 Error: User attempted to access non-existent route:",
@@ -40,16 +34,5 @@ const NotFound = ({ notFoundPageData }: NotFoundProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<NotFoundProps> = async () => {
-  const filePath = path.join(process.cwd(), 'src/data/pages/NotFound.json');
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const notFoundPageData: NotFoundPageData = JSON.parse(fileContent);
-
-  return {
-    props: {
-      notFoundPageData,
-    },
-  };
-};
 
 export default NotFound;
