@@ -11,6 +11,7 @@ Choose one of the following approaches to ensure search engine crawlers can effe
 
 **Decision:** *[Choose SSR or SSG and briefly explain the rationale based on project needs]*
 
+
 ## 2. Metadata Optimization
 
 Optimize metadata for each page to improve visibility and click-through rates on search engine results pages (SERPs).
