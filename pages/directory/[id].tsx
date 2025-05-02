@@ -17,18 +17,6 @@ interface DirectoryDetailsProps {
 }
 
 const DirectoryDetails = ({ item }: DirectoryDetailsProps) => {
-  if (!item) {
-    return (
-      <div className="container mx-auto px-4 py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">{directoryDetailsPageData.notFoundTitle}</h1>
-        <p className="mb-6">{directoryDetailsPageData.notFoundMessage}</p>
-        <Link href="/">
-          <Button>{directoryDetailsPageData.returnButtonText}</Button>
-        </Link>
-      </div>
-    );
-  }
-
   const [isFavorite, setIsFavorite] = useState(false);
   const { toast } = useToast();
 
@@ -68,6 +56,18 @@ const DirectoryDetails = ({ item }: DirectoryDetailsProps) => {
     localStorage.setItem('favorites', JSON.stringify(favoriteIds));
     setIsFavorite(!isFavorite);
   };
+
+  if (!item) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <h1 className="text-3xl font-bold mb-4">{directoryDetailsPageData.notFoundTitle}</h1>
+        <p className="mb-6">{directoryDetailsPageData.notFoundMessage}</p>
+        <Link href="/">
+          <Button>{directoryDetailsPageData.returnButtonText}</Button>
+        </Link>
+      </div>
+    );
+  }
 
 
   return (
@@ -276,7 +276,7 @@ export const getStaticProps: GetStaticProps<DirectoryDetailsProps> = async ({ pa
       }
       if (typeof obj === 'object' && obj !== null) {
         for (const key in obj) {
-          if (obj.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(obj, key)) {
             obj[key] = replaceUndefinedWithNull(obj[key]);
           }
         }
@@ -294,6 +294,8 @@ export const getStaticProps: GetStaticProps<DirectoryDetailsProps> = async ({ pa
   };
 };
 
-export default dynamic(() => Promise.resolve(DirectoryDetails), {
+const DirectoryDetailsWithNoSSR = dynamic(() => Promise.resolve(DirectoryDetails), {
   ssr: false
 });
+
+export default DirectoryDetailsWithNoSSR;

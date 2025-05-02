@@ -2,10 +2,17 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect } from "react";
 import { GetServerSideProps } from 'next';
-import notFoundPageData from "@/data/pages/NotFound.json";
+import fs from 'fs';
+import path from 'path';
+
+interface NotFoundPageData {
+  title: string;
+  message: string;
+  returnLinkText: string;
+}
 
 interface NotFoundProps {
-  notFoundPageData: any; // Replace 'any' with the actual type of your data
+  notFoundPageData: NotFoundPageData;
 }
 
 const NotFound = ({ notFoundPageData }: NotFoundProps) => {
@@ -33,13 +40,10 @@ const NotFound = ({ notFoundPageData }: NotFoundProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const fs = require('fs');
-  const path = require('path');
-
+export const getServerSideProps: GetServerSideProps<NotFoundProps> = async () => {
   const filePath = path.join(process.cwd(), 'src/data/pages/NotFound.json');
   const fileContent = fs.readFileSync(filePath, 'utf8');
-  const notFoundPageData = JSON.parse(fileContent);
+  const notFoundPageData: NotFoundPageData = JSON.parse(fileContent);
 
   return {
     props: {
