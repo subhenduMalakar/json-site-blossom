@@ -29,7 +29,15 @@ const BlogPostSummary = ({ post }: BlogPostSummaryProps) => {
         </h2>
         <p className="text-gray-600 mb-4">{post.excerpt}</p>
         <div className="text-sm text-gray-500 mb-4">
-          By {post.author} on {new Date(post.date).toLocaleDateString()}
+          By {post.author} on {
+            (() => {
+              const date = new Date(post.date);
+              const day = date.getDate().toString().padStart(2, '0');
+              const month = (date.getMonth() + 1).toString().padStart(2, '0');
+              const year = date.getFullYear();
+              return `${day}/${month}/${year}`;
+            })()
+          }
         </div>
         {post.tags && post.tags.length > 0 && (
           <div className="text-sm text-gray-500">

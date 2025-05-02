@@ -38,7 +38,15 @@ const BlogDetail = ({ post }: BlogDetailProps) => {
       <header className="mb-8">
         <h1 className="text-4xl font-bold mb-2">{post.title}</h1>
         <div className="text-gray-600 text-sm mb-4">
-          By {post.author} on {new Date(post.date).toLocaleDateString()}
+          By {post.author} on {
+            (() => {
+              const date = new Date(post.date);
+              const day = date.getDate().toString().padStart(2, '0');
+              const month = (date.getMonth() + 1).toString().padStart(2, '0');
+              const year = date.getFullYear();
+              return `${day}/${month}/${year}`;
+            })()
+          }
         </div>
         {post.tags && post.tags.length > 0 && (
           <div className="text-gray-600 text-sm">

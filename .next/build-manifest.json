@@ -43,15 +43,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/blog/[slug].js"
     ],
-    "/directory/[id]": [
+    "/contact": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/directory/[id].js"
+      "static/chunks/pages/contact.js"
     ],
-    "/favorites": [
+    "/privacy-policy": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/favorites.js"
+      "static/chunks/pages/privacy-policy.js"
     ]
   },
   "ampFirstPages": []

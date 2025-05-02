@@ -2,10 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/favorites": "pages/favorites.js",
-  "/directory/[id]": "pages/directory/[id].js",
-  "/about": "pages/about.js",
   "/blog": "pages/blog.js",
-  "/blog/[slug]": "pages/blog/[slug].js"
+  "/about": "pages/about.js",
+  "/blog/[slug]": "pages/blog/[slug].js",
+  "/contact": "pages/contact.js",
+  "/": "pages/index.js",
+  "/privacy-policy": "pages/privacy-policy.js"
 }
